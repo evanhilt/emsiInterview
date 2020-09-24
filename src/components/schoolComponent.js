@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
 // import './App.css';
 
-class SchoolComponent extends Component {
+export default class SchoolComponent extends Component {
   constructor(props) {
     super(props)
       this.state = {
-        name: this.props.schoolName,
-        location: this.props.location
+        name: this.props.name,
+        location: this.props.location,
+        studentSize: this.props.studentSize,
+        admissionRate: this.props.admissionRate,
+        programs: this.props.programs   
     };
   }
 
   render() {
     return(
-      <div>
-        <p>
-          Hello Components
-        </p>
-        <p>
-          The School's name is: {this.props.name}
-        </p>
+      <div className='schoolComponent'>
+        <p>{this.state.name}</p>
+        <p>{this.state.location}</p>
+        <p>{this.state.studentSize}, {this.state.admissionRate}</p>
+        <p>Available Program Counts:</p>
+        <div>{this.state.programs}</div>
       </div>
     );
   }
 }
-
-  export default SchoolComponent;

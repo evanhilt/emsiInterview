@@ -1,30 +1,63 @@
 import React, { Component } from 'react';
 import SchoolComponent from './components/schoolComponent';
-import getSchools from './data/getSchools';
+import getSchoolsUrl from './data/url';
+import { getCredCount, makeCredentialMap } from './data/credentials';
 import './App.css';
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      schools: [],
-      schoolId: ""
+      schoolComponents: [],
     }
   }
 
-  componentDidMount() {
-    const url = getSchools();
+  createSchoolComponents = (schoolObjects) => {
+    return <div>{schoolObjects.map(schoolObject => this.createSchoolComponent(schoolObject))}</div>;
+  }
 
+  createSchoolComponent = (schoolObject) => {
+    const { 'school.name': name } = schoolObject;
+    const { 'school.city': city } = schoolObject;
+    const { 'school.state': state } = schoolObject;
+    const { 'latest.student.size': studentSize } = schoolObject;
+    const { 'latest.admissions.admission_rate.overall': admissionRate } = schoolObject;
+
+    const { 'latest.programs.cip_4_digit': programObjects } = schoolObject;
+    var i;
+    var credentialMap = makeCredentialMap();
+    for(i=0; i<programObjects.length; i++) {
+      const { 'credential': { title } } = programObjects[i];
+      credentialMap[title] += 1;
+    }
+    console.log(credentialMap);
+    var programs = [];
+    for(var credential in credentialMap) {
+      if(credentialMap[credential] !== 0) {
+        programs.push(`${credential}: ${credentialMap[credential]}\n`);
+      }
+    }
+    const schoolComponent = (<SchoolComponent 
+      name = { name }
+      location = { `${city}, ${state}` }
+      studentSize = { studentSize }
+      admissionRate = { admissionRate }
+      programs = { programs }
+    />);
+    return schoolComponent;
+  }
+
+  componentDidMount() {
+    const url = getSchoolsUrl();
     fetch(url)
       .then((response) => {
-      return response.json();
+        return response.json();
       })
       .then((json) => {
+        console.log(json.results);
         this.setState({
-          schools: json.results,
-          schoolId: json.results[0].id
+          schoolComponents: this.createSchoolComponents(json.results)
         });
-        console.log(this.state.schools[0].id);
       });
   }
 
@@ -35,19 +68,7 @@ class App extends Component {
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
-          <p>{this.state.schoolId}</p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          <SchoolComponent
-            name='The best school'
-            location='wherever'
-          />
+          <div>{this.state.schoolComponents}</div>
         </header>
       </div>
     );
