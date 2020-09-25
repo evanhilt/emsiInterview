@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  /* background-color: #ededed; */
+  background-color: #ededed;
 }
 
 .App-header {
@@ -29,4 +29,23 @@
 
 .schoolComponent {
   border-style: dotted;
+  background-color: #ffffff;
+  color: black;
+}
+
+.studentSizeAdmissionRateNumberText {
+  color: #aea8df;
+}
+
+.admissionRateBarPositiveSpace {
+  color: #bdd9e7;
+}
+
+.admissionRateBarNegativeSpace {
+  color: #bbbbbb;
+}
+
+.schoolComponentTopHalf {
+  display: flex;
+  flex-direction: row;
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SchoolComponent from './components/schoolComponent';
 import getSchoolsUrl from './data/url';
-import { getCredCount, makeCredentialMap } from './data/credentials';
+import { makeCredentialMap } from './data/credentials';
 import './App.css';
 
 class App extends Component {
@@ -70,6 +70,15 @@ class App extends Component {
           </p>
           <div>{this.state.schoolComponents}</div>
         </header>
+        <div>Icons made by 
+          <a 
+            href="https://www.flaticon.com/authors/pixel-perfect" 
+            title="Pixel perfect">Pixel perfect
+          </a> from <a 
+            href="https://www.flaticon.com/" 
+            title="Flaticon">www.flaticon.com
+          </a>
+        </div>
       </div>
     );
   }

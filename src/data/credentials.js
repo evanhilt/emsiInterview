@@ -10,6 +10,3 @@ export const makeCredentialMap = () => {
     'Graduate/Professional Certificate': 0
   };
 }
-export const getCredCount = () => 8;
-// export const getCredByIndex = (index) => credentials[index]
-// export const getCredByCode = (code) => credentials[code]
