@@ -30,7 +30,6 @@ class App extends Component {
       const { 'credential': { title } } = programObjects[i];
       credentialMap[title] += 1;
     }
-    console.log(credentialMap);
     var programs = [];
     for(var credential in credentialMap) {
       if(credentialMap[credential] !== 0) {
@@ -54,7 +53,6 @@ class App extends Component {
         return response.json();
       })
       .then((json) => {
-        console.log(json.results);
         this.setState({
           schoolComponents: this.createSchoolComponents(json.results)
         });
